@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Box, Container, TextField, Button, Typography } from "@mui/material";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
@@ -11,34 +12,52 @@ const Login = () => {
   };
 
   const onSubmit = () => {
+    console.log(loginData);
     localStorage.setItem("isLogged", "true");
   };
 
   return (
-    <div>
-      <form>
-        <label htmlFor="mail">E-mail:</label>
-        <input
-          type="email"
-          id="mail"
-          name="email"
+    <Box
+      component="form"
+      noValidate
+      sx={{ m: 1, textAlign: "center", flexDirection: "row" }}
+    >
+      <Container>
+        <Typography variant="h5" sx={{ mb: 3, fontWeight: "fontWeightLight" }}>
+          Welcome! Log in, please.
+        </Typography>
+      </Container>
+      <Container>
+        <TextField
+          name="username"
+          label="Username"
+          sx={{ mt: 1, mb: 2 }}
           onChange={loginDataHandler}
         />
-        <label htmlFor="ps">Password:</label>
-        <input
-          type="password"
-          id="ps"
+      </Container>
+      <Container>
+        <TextField
           name="password"
+          label="Password"
+          type="password"
+          sx={{ mt: 1, mb: 2, ml: 1 }}
           onChange={loginDataHandler}
         />
-        <Link to="/">
-          <button type="button" onClick={onSubmit}>
-            Login
-          </button>
-        </Link>
-      </form>
-      <Link to="/register">Don't have an account? Register here!</Link>
-    </div>
+      </Container>
+      <Button
+        component={Link}
+        to={"/"}
+        variant="contained"
+        type="button"
+        sx={{ mb: 2, ml: 1 }}
+        onClick={onSubmit}
+      >
+        Log In!
+      </Button>
+      <Box>
+        <Link to="/register">Don't have an account? Register here!</Link>
+      </Box>
+    </Box>
   );
 };
 

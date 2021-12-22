@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Box, Container, TextField, Button, Typography } from "@mui/material";
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({});
@@ -11,41 +12,63 @@ const Register = () => {
   };
 
   const onSubmit = () => {
+    console.log(registerData);
     localStorage.setItem("isLogged", "true");
   };
   return (
-    <div>
-      <form>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          onChange={registerDataHandler}
-        />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={registerDataHandler}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          onChange={registerDataHandler}
-        />
+    <Box
+      component="form"
+      noValidate
+      sx={{ m: 1, textAlign: "center", flexDirection: "row" }}
+    >
+      <Container>
+        <Typography variant="h5" sx={{ mb: 3, fontWeight: "fontWeightLight" }}>
+          Create a new account! Register below.
+        </Typography>
+      </Container>
 
-        <Link to="/">
-          <button type="button" onClick={onSubmit}>
-            Register!
-          </button>
-        </Link>
-      </form>
-      <Link to="/login">Already have an account? Login!</Link>
-    </div>
+      <Container>
+        <TextField
+          name="username"
+          label="Username"
+          sx={{ mt: 1, mb: 2 }}
+          onChange={registerDataHandler}
+        />
+      </Container>
+
+      <Container>
+        <TextField
+          name="email"
+          label="Email"
+          type="email"
+          sx={{ mt: 1, mb: 2, ml: 1 }}
+          onChange={registerDataHandler}
+        />
+      </Container>
+      <Container>
+        <TextField
+          name="password"
+          label="Passwrod"
+          type="password"
+          sx={{ mt: 1, mb: 2, ml: 1 }}
+          onChange={registerDataHandler}
+        />
+      </Container>
+
+      <Button
+        component={Link}
+        to={"/"}
+        variant="contained"
+        type="button"
+        sx={{ mb: 2, ml: 1 }}
+        onClick={onSubmit}
+      >
+        Register!
+      </Button>
+      <Box>
+        <Link to="/login">Already have an account? Login!</Link>
+      </Box>
+    </Box>
   );
 };
 
