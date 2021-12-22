@@ -41,7 +41,7 @@ const Register = () => {
           name="email"
           label="Email"
           type="email"
-          sx={{ mt: 1, mb: 2, ml: 1 }}
+          sx={{ mt: 1, mb: 2 }}
           onChange={registerDataHandler}
         />
       </Container>
@@ -50,7 +50,7 @@ const Register = () => {
           name="password"
           label="Passwrod"
           type="password"
-          sx={{ mt: 1, mb: 2, ml: 1 }}
+          sx={{ mt: 1, mb: 2 }}
           onChange={registerDataHandler}
         />
       </Container>

@@ -40,7 +40,7 @@ const Login = () => {
           name="password"
           label="Password"
           type="password"
-          sx={{ mt: 1, mb: 2, ml: 1 }}
+          sx={{ mt: 1, mb: 2 }}
           onChange={loginDataHandler}
         />
       </Container>
