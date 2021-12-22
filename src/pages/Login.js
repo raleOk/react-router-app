@@ -9,9 +9,11 @@ const Login = () => {
       return { ...prevState, [event.target.name]: event.target.value };
     });
   };
+
   const onSubmit = () => {
-    console.log(loginData);
+    localStorage.setItem("isLogged", "true");
   };
+
   return (
     <div>
       <form>
@@ -29,9 +31,11 @@ const Login = () => {
           name="password"
           onChange={loginDataHandler}
         />
-        <button type="button" onClick={onSubmit}>
-          Login
-        </button>
+        <Link to="/">
+          <button type="button" onClick={onSubmit}>
+            Login
+          </button>
+        </Link>
       </form>
       <Link to="/register">Don't have an account? Register here!</Link>
     </div>

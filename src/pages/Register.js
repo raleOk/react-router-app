@@ -11,7 +11,7 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    console.log(registerData);
+    localStorage.setItem("isLogged", "true");
   };
   return (
     <div>
@@ -37,11 +37,14 @@ const Register = () => {
           name="password"
           onChange={registerDataHandler}
         />
-        <button type="button" onClick={onSubmit}>
-          Register
-        </button>
+
+        <Link to="/">
+          <button type="button" onClick={onSubmit}>
+            Register!
+          </button>
+        </Link>
       </form>
-      <Link to="/">Already have an account? Login!</Link>
+      <Link to="/login">Already have an account? Login!</Link>
     </div>
   );
 };
