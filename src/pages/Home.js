@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import HomePage from "../components/HomePage";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Container } from "@mui/material";
 
 const Home = () => {
   let navigate = useNavigate();
@@ -9,10 +9,23 @@ const Home = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  const onLogout = () => {
+    localStorage.removeItem("isLogged");
+  };
   return (
-    <div>
-      <HomePage />
-    </div>
+    <Container>
+      <Button
+        component={Link}
+        to={"/login"}
+        variant="outlined"
+        color="error"
+        type="button"
+        onClick={onLogout}
+      >
+        Log out!
+      </Button>
+    </Container>
   );
 };
 
