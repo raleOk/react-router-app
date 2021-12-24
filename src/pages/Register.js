@@ -12,7 +12,7 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    console.log(registerData);
+    localStorage.setItem("user", JSON.stringify(registerData));
     localStorage.setItem("isLogged", "true");
   };
   return (

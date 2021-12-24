@@ -12,7 +12,7 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    console.log(loginData);
+    localStorage.setItem("user", JSON.stringify(loginData));
     localStorage.setItem("isLogged", "true");
   };
 
