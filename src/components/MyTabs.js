@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, matchPath, Link } from "react-router-dom";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, Button, Typography } from "@mui/material";
+import PaletteIcon from "@mui/icons-material/Palette";
 
 const MyTabs = () => {
   const useRouteMatch = patterns => {
@@ -18,12 +19,37 @@ const MyTabs = () => {
   const routeMatch = useRouteMatch(["/", "/about", "/contact", "/colors"]);
   const currentTab = routeMatch?.pattern?.path;
 
+  const logOut = () => {
+    localStorage.removeItem("isLogged");
+  };
+
   return (
     <Tabs value={currentTab} centered>
+      <Typography
+        sx={{
+          fontFamily: "Helvetica",
+          position: "absolute",
+          left: 10,
+          fontSize: 18,
+        }}
+        variant="body1"
+      >
+        <PaletteIcon size="large" /> CompanyName
+      </Typography>
+
       <Tab label="Home" value="/" to="/" component={Link} />
       <Tab label="Colors" value="/colors" to="/colors" component={Link} />
       <Tab label="About" value="/about" to="/about" component={Link} />
       <Tab label="Contact" value="/contact" to="/contact" component={Link} />
+      <Button
+        component={Link}
+        to={"/login"}
+        color="error"
+        onClick={logOut}
+        sx={{ ml: 7 }}
+      >
+        Log out
+      </Button>
     </Tabs>
   );
 };
