@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ColorsTable from "../components/ColorsTable";
 
 const Colors = () => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const Colors = () => {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
+        setData(data);
         setIsLoading(false);
       })
       .catch(err => {
@@ -20,7 +22,7 @@ const Colors = () => {
       });
   }, []);
 
-  return <div>{isLoading ? "Loading" : null}</div>;
+  return <div>{isLoading ? "Loading" : <ColorsTable rows={data} />}</div>;
 };
 
 export default Colors;
