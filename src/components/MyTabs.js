@@ -15,12 +15,13 @@ const MyTabs = () => {
     }
     return null;
   };
-  const routeMatch = useRouteMatch(["/", "/about", "/contact"]);
+  const routeMatch = useRouteMatch(["/", "/about", "/contact", "/colors"]);
   const currentTab = routeMatch?.pattern?.path;
 
   return (
     <Tabs value={currentTab} centered>
       <Tab label="Home" value="/" to="/" component={Link} />
+      <Tab label="Colors" value="/colors" to="/colors" component={Link} />
       <Tab label="About" value="/about" to="/about" component={Link} />
       <Tab label="Contact" value="/contact" to="/contact" component={Link} />
     </Tabs>
