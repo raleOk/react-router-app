@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Wrapper from "./pages/Wrapper";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Wrapper />}>
+        <Route path="/" element={<ProtectedRoutes />}>
           <Route path="/" element={<Home />} exact />
           <Route path="/colors" element={<Colors />} />
           <Route path="/about" element={<About />} />
