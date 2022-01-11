@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
-import { authContext } from "../components/auth/useAuth";
+import { authContext } from "../auth/useAuth";
 
 const Home = () => {
   const [userData, setUserData] = useState({});

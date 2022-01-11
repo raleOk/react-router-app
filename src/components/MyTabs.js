@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useLocation, matchPath, Link } from "react-router-dom";
 import { Tabs, Tab, Button, Typography } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
-import { authContext } from "./auth/useAuth";
+import { authContext } from "../auth/useAuth";
 
 const MyTabs = () => {
   const { logout } = useContext(authContext);

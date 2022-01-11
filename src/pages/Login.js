@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
-import { authContext } from "../components/auth/useAuth";
+import { authContext } from "../auth/useAuth";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
