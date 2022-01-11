@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Navbar";
 import { Outlet, Navigate } from "react-router-dom";
-import { authContext } from "../components/auth/useAuth";
+import { authContext } from "./useAuth";
 
 const ProtectedRoutes = ({ children }) => {
   const { auth } = useContext(authContext);

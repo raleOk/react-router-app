@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, matchPath, Link } from "react-router-dom";
 import { Tabs, Tab, Button, Typography } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
+import { authContext } from "./auth/useAuth";
 
 const MyTabs = () => {
+  const { logout } = useContext(authContext);
+
   const useRouteMatch = patterns => {
     const { pathname } = useLocation();
 
@@ -20,6 +23,7 @@ const MyTabs = () => {
   const currentTab = routeMatch?.pattern?.path;
 
   const logOut = () => {
+    logout();
     localStorage.removeItem("isLogged");
   };
 
