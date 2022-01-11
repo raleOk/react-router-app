@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
+import { authContext } from "../components/auth/useAuth";
 
 const Home = () => {
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
+  const { logout } = useContext(authContext);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
@@ -19,7 +21,9 @@ const Home = () => {
 
   const onLogout = () => {
     localStorage.removeItem("isLogged");
+    logout();
   };
+
   return (
     <Box sx={{ m: 1, textAlign: "center" }}>
       <Typography variant="subtitle1" comonent="h2">

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
+import { authContext } from "../components/auth/useAuth";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
+
+  const { login } = useContext(authContext);
 
   const loginDataHandler = event => {
     setLoginData(prevState => {
@@ -14,6 +17,7 @@ const Login = () => {
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(loginData));
     localStorage.setItem("isLogged", "true");
+    login();
   };
 
   return (
