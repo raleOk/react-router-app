@@ -13,6 +13,9 @@ const Home = () => {
   }, []);
 
   const onLogout = () => {
+    const data = JSON.parse(localStorage.getItem("colorsData"));
+    const initialData = data.slice(0, 6);
+    localStorage.setItem("colorsData", JSON.stringify(initialData));
     logout();
   };
 

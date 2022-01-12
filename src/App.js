@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import Home from "./pages/Home";
@@ -8,8 +8,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Colors from "./pages/Colors";
 import NotFound from "./pages/NotFound";
+import axiosColors from "./components/Colors/axiosColors";
 
 const App = () => {
+  useEffect(() => {
+    axiosColors();
+  }, []);
   return (
     <div>
       <Routes>
