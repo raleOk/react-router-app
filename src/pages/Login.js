@@ -16,7 +16,6 @@ const Login = () => {
 
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(loginData));
-    localStorage.setItem("isLogged", "true");
     login();
   };
 

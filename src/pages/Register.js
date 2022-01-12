@@ -15,7 +15,6 @@ const Register = () => {
 
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(registerData));
-    localStorage.setItem("isLogged", "true");
     login();
   };
   return (

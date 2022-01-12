@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
 import { authContext } from "../auth/useAuth";
 
@@ -13,14 +13,7 @@ const Home = () => {
     setUserData(data);
   }, []);
 
-  useEffect(() => {
-    if (localStorage.getItem("isLogged") === null) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   const onLogout = () => {
-    localStorage.removeItem("isLogged");
     logout();
   };
 
