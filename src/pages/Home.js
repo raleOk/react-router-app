@@ -5,7 +5,6 @@ import { authContext } from "../auth/useAuth";
 
 const Home = () => {
   const [userData, setUserData] = useState({});
-  const navigate = useNavigate();
   const { logout } = useContext(authContext);
 
   useEffect(() => {
