@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { TableBody, TableCell, TextField, Button } from "@mui/material";
+import {
+  TableBody,
+  TableCell,
+  TableRow,
+  TextField,
+  Button,
+} from "@mui/material";
 
 const ColorsEditForm = props => {
   const { currId, stopEditing, tableDataHandler } = props;
@@ -12,7 +18,7 @@ const ColorsEditForm = props => {
       return c.id === currId;
     });
     setEditedColor(color);
-  }, []);
+  }, [currId]);
 
   const onChangeHandler = event => {
     setEditedColor(prevState => {
@@ -33,52 +39,54 @@ const ColorsEditForm = props => {
 
   return (
     <TableBody>
-      <TableCell>
-        <TextField
-          InputLabelProps={{ shrink: true }}
-          label="Name"
-          name="name"
-          defaultValue={editedColor.name}
-          value={editedColor.name}
-          onChange={onChangeHandler}
-        />
-      </TableCell>
-      <TableCell>
-        <TextField
-          InputLabelProps={{ shrink: true }}
-          name="year"
-          label="Year"
-          defaultValue={editedColor.year}
-          value={editedColor.year}
-          onChange={onChangeHandler}
-        />
-      </TableCell>
-      <TableCell>
-        <TextField
-          InputLabelProps={{ shrink: true }}
-          name="color"
-          label="Hexadecimal value"
-          defaultValue={editedColor.color}
-          value={editedColor.color}
-          onChange={onChangeHandler}
-        />
-      </TableCell>
-      <TableCell>
-        <TextField
-          InputLabelProps={{ shrink: true }}
-          name="pantone_value"
-          label="Pantone value"
-          defaultValue={editedColor.pantone_value}
-          value={editedColor.pantone_value}
-          onChange={onChangeHandler}
-        />
-      </TableCell>
+      <TableRow>
+        <TableCell>
+          <TextField
+            InputLabelProps={{ shrink: true }}
+            label="Name"
+            name="name"
+            defaultValue={editedColor.name}
+            value={editedColor.name || {}}
+            onChange={onChangeHandler}
+          />
+        </TableCell>
+        <TableCell>
+          <TextField
+            InputLabelProps={{ shrink: true }}
+            name="year"
+            label="Year"
+            defaultValue={editedColor.year}
+            value={editedColor.year || {}}
+            onChange={onChangeHandler}
+          />
+        </TableCell>
+        <TableCell>
+          <TextField
+            InputLabelProps={{ shrink: true }}
+            name="color"
+            label="Hexadecimal value"
+            defaultValue={editedColor.color}
+            value={editedColor.color || {}}
+            onChange={onChangeHandler}
+          />
+        </TableCell>
+        <TableCell>
+          <TextField
+            InputLabelProps={{ shrink: true }}
+            name="pantone_value"
+            label="Pantone value"
+            defaultValue={editedColor.pantone_value}
+            value={editedColor.pantone_value || {}}
+            onChange={onChangeHandler}
+          />
+        </TableCell>
 
-      <TableCell>
-        <Button type="button" variant="contained" onClick={onSubmit}>
-          Edit!
-        </Button>
-      </TableCell>
+        <TableCell>
+          <Button type="button" variant="contained" onClick={onSubmit}>
+            Edit!
+          </Button>
+        </TableCell>
+      </TableRow>
     </TableBody>
   );
 };
