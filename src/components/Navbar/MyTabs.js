@@ -3,6 +3,7 @@ import { useLocation, matchPath, Link } from "react-router-dom";
 import { Tabs, Tab, Button, Typography } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { authContext } from "../../auth/useAuth";
+import axiosColors from "../Colors/axiosColors";
 
 const MyTabs = () => {
   const { logout } = useContext(authContext);
@@ -23,9 +24,7 @@ const MyTabs = () => {
   const currentTab = routeMatch?.pattern?.path;
 
   const logOut = () => {
-    const data = JSON.parse(localStorage.getItem("colorsData"));
-    const initialData = data.slice(0, 6);
-    localStorage.setItem("colorsData", JSON.stringify(initialData));
+    axiosColors();
     logout();
   };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
 import { authContext } from "../auth/useAuth";
+import axiosColors from "../components/Colors/axiosColors";
 
 const Home = () => {
   const [userData, setUserData] = useState({});
@@ -13,9 +14,7 @@ const Home = () => {
   }, []);
 
   const onLogout = () => {
-    const data = JSON.parse(localStorage.getItem("colorsData"));
-    const initialData = data.slice(0, 6);
-    localStorage.setItem("colorsData", JSON.stringify(initialData));
+    axiosColors();
     logout();
   };
 
