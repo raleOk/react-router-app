@@ -10,9 +10,10 @@ import {
   TableFooter,
   TablePagination,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ColorsTable = props => {
-  const { rows } = props;
+  const { rows, deleteColorHandler } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -24,6 +25,15 @@ const ColorsTable = props => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleDelete = colorId => {
+    const colors = JSON.parse(localStorage.getItem("colorsData"));
+    const filteredColors = colors.filter(col => {
+      return col.id !== colorId;
+    });
+    localStorage.setItem("colorsData", JSON.stringify(filteredColors));
+    deleteColorHandler(filteredColors);
   };
 
   const emptyRows =
@@ -38,6 +48,7 @@ const ColorsTable = props => {
             <TableCell align="right">Year</TableCell>
             <TableCell align="right">Hexadecimal value</TableCell>
             <TableCell align="right">Pantone value</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,6 +65,9 @@ const ColorsTable = props => {
                 <TableCell align="right">{row.year}</TableCell>
                 <TableCell align="right">{row.color}</TableCell>
                 <TableCell align="right">{row.pantone_value}</TableCell>
+                <TableCell align="right">
+                  <DeleteIcon onClick={() => handleDelete(row.id)} />
+                </TableCell>
               </TableRow>
             ))}
           {emptyRows > 0 && (
