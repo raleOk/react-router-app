@@ -15,6 +15,9 @@ const ColorsForm = props => {
   };
 
   const addColor = () => {
+    setColor(prevState => {
+      return { ...prevState, id };
+    });
     const colors = JSON.parse(localStorage.getItem("colorsData"));
     colors.push(color);
     localStorage.setItem("colorsData", JSON.stringify(colors));
