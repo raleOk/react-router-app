@@ -1,13 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation, matchPath, Link } from "react-router-dom";
-import { Tabs, Tab, Button, Typography } from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
-import { authContext } from "../../auth/useAuth";
-import axiosColors from "../Colors/axiosColors";
+import { Tabs, Tab } from "@mui/material";
 
 const MyTabs = () => {
-  const { logout } = useContext(authContext);
-
   const useRouteMatch = patterns => {
     const { pathname } = useLocation();
 
@@ -23,38 +18,12 @@ const MyTabs = () => {
   const routeMatch = useRouteMatch(["/", "/about", "/contact", "/colors"]);
   const currentTab = routeMatch?.pattern?.path;
 
-  const logOut = () => {
-    axiosColors();
-    logout();
-  };
-
   return (
     <Tabs value={currentTab} centered>
-      <Typography
-        sx={{
-          fontFamily: "Helvetica",
-          position: "absolute",
-          left: 10,
-          fontSize: 18,
-        }}
-        variant="body1"
-      >
-        <PaletteIcon size="large" /> CompanyName
-      </Typography>
-
       <Tab label="Home" value="/" to="/" component={Link} />
       <Tab label="Colors" value="/colors" to="/colors" component={Link} />
       <Tab label="About" value="/about" to="/about" component={Link} />
       <Tab label="Contact" value="/contact" to="/contact" component={Link} />
-      <Button
-        component={Link}
-        to={"/login"}
-        color="error"
-        onClick={logOut}
-        sx={{ ml: 7 }}
-      >
-        Log out
-      </Button>
     </Tabs>
   );
 };
