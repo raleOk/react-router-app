@@ -16,13 +16,13 @@ const Colors = () => {
     });
   };
 
-  const deleteColorHandler = arr => {
+  const tableDataHandler = arr => {
     setData(arr);
   };
 
   return (
     <>
-      <ColorsTable rows={data} deleteColorHandler={deleteColorHandler} />
+      <ColorsTable rows={data} tableDataHandler={tableDataHandler} />
       <ColorsForm addColorHandler={addColorHandler} />
     </>
   );
