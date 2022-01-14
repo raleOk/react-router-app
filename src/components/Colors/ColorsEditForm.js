@@ -17,7 +17,6 @@ const ColorsEditForm = props => {
     const color = data.find(c => {
       return c.id === currId;
     });
-    console.log(color);
     setEditedColor(color);
   }, [currId]);
 
