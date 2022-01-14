@@ -9,14 +9,17 @@ import {
   Paper,
   TableFooter,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ColorsTablePagination from "./ColorsTablePagination";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-
+import SearchIcon from "@mui/icons-material/Search";
 import ColorsEditForm from "./ColorsEditForm";
 
 const ColorsTable = props => {
   const { rows, tableDataHandler } = props;
+
+  const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -51,6 +54,10 @@ const ColorsTable = props => {
     tableDataHandler(filteredColors);
   };
 
+  const detailsPage = i => {
+    navigate(`/colorDetails/${i}`);
+  };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -58,6 +65,7 @@ const ColorsTable = props => {
     return (
       <TableHead>
         <TableRow>
+          <TableCell></TableCell>
           <TableCell>Color</TableCell>
           <TableCell align="right">Year</TableCell>
           <TableCell align="right">Hexadecimal value</TableCell>
@@ -79,6 +87,13 @@ const ColorsTable = props => {
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
+              <TableCell align="left">
+                <SearchIcon
+                  onClick={() => {
+                    detailsPage(row.id);
+                  }}
+                />
+              </TableCell>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>

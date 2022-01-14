@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Colors from "./pages/Colors";
 import NotFound from "./pages/NotFound";
+import ColorDetails from "./pages/ColorDetails";
 import axiosColors from "./components/Colors/axiosColors";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/colorDetails/:colorId" element={<ColorDetails />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
