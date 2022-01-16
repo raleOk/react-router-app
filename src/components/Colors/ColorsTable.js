@@ -62,6 +62,14 @@ const ColorsTable = props => {
     navigate(`/colorDetails/${i}`);
   };
 
+  const iconStyles = {
+    ":hover": { backgroundColor: "#DADADA" },
+    width: "25px",
+    height: "25px",
+    padding: "4px ",
+    borderRadius: "5px",
+  };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -69,11 +77,11 @@ const ColorsTable = props => {
     return (
       <TableHead>
         <TableRow>
-          <TableCell></TableCell>
           <TableCell>Color</TableCell>
           <TableCell align="right">Year</TableCell>
           <TableCell align="right">Hexadecimal value</TableCell>
           <TableCell align="right">Pantone value</TableCell>
+          <TableCell></TableCell>
           <TableCell></TableCell>
           <TableCell></TableCell>
         </TableRow>
@@ -91,13 +99,6 @@ const ColorsTable = props => {
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell align="left">
-                <SearchIcon
-                  onClick={() => {
-                    detailsPage(row.id);
-                  }}
-                />
-              </TableCell>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
@@ -105,10 +106,24 @@ const ColorsTable = props => {
               <TableCell align="right">{row.color}</TableCell>
               <TableCell align="right">{row.pantone_value}</TableCell>
               <TableCell align="right">
-                <EditIcon onClick={() => startEditing(row.id)} />
+                <SearchIcon
+                  sx={iconStyles}
+                  onClick={() => {
+                    detailsPage(row.id);
+                  }}
+                />
               </TableCell>
               <TableCell align="right">
-                <DeleteIcon onClick={() => handleDelete(row.id)} />
+                <EditIcon
+                  sx={iconStyles}
+                  onClick={() => startEditing(row.id)}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <DeleteIcon
+                  sx={iconStyles}
+                  onClick={() => handleDelete(row.id)}
+                />
               </TableCell>
             </TableRow>
           ))}
