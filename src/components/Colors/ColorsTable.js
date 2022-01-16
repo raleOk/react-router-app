@@ -15,15 +15,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import ColorsEditForm from "./ColorsEditForm";
+import ColorsDeleteModal from "./ColorsDeleteModal";
 
 const ColorsTable = props => {
   const { rows, tableDataHandler } = props;
 
   const navigate = useNavigate();
 
+  //pagination state
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  //crud functionality state
+  const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [colorId, setColorId] = useState(null);
 
@@ -45,13 +49,13 @@ const ColorsTable = props => {
     setIsEditing(false);
   };
 
-  const handleDelete = colorId => {
-    const colors = JSON.parse(localStorage.getItem("colorsData"));
-    const filteredColors = colors.filter(col => {
-      return col.id !== colorId;
-    });
-    localStorage.setItem("colorsData", JSON.stringify(filteredColors));
-    tableDataHandler(filteredColors);
+  const handleDelete = i => {
+    setColorId(i);
+    setShowModal(true);
+  };
+
+  const modalHandler = () => {
+    setShowModal(false);
   };
 
   const detailsPage = i => {
@@ -118,32 +122,45 @@ const ColorsTable = props => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        {tableHead()}
+    <>
+      {showModal ? (
+        <ColorsDeleteModal
+          showModal={showModal}
+          modalHandler={modalHandler}
+          colorId={colorId}
+          tableDataHandler={tableDataHandler}
+        />
+      ) : (
+        ""
+      )}
+      ,
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          {tableHead()}
 
-        {isEditing ? (
-          <ColorsEditForm
-            currId={colorId}
-            stopEditing={stopEditing}
-            tableDataHandler={tableDataHandler}
-          />
-        ) : (
-          tableBody()
-        )}
+          {isEditing ? (
+            <ColorsEditForm
+              currId={colorId}
+              stopEditing={stopEditing}
+              tableDataHandler={tableDataHandler}
+            />
+          ) : (
+            tableBody()
+          )}
 
-        <TableFooter>
-          <ColorsTablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          <TableFooter>
+            <ColorsTablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

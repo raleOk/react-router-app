@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     axiosColors();
     authHandler();
-  }, []);
+  }, [authHandler]);
   return (
     <div>
       <Routes>

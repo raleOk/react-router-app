@@ -23,7 +23,7 @@ const Colors = () => {
   return (
     <>
       <ColorsTable rows={data} tableDataHandler={tableDataHandler} />
-      <ColorsForm addColorHandler={addColorHandler} />
+      <ColorsForm addColorHandler={addColorHandler} />)
     </>
   );
 };

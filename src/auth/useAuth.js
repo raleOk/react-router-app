@@ -39,4 +39,4 @@ const AuthProvider = props => {
   );
 };
 
-export { authContext, useAuth, AuthProvider };
+export { authContext, AuthProvider };
