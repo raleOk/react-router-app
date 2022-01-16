@@ -7,11 +7,11 @@ import axiosColors from "../Colors/axiosColors";
 import { authContext } from "../../auth/useAuth";
 
 const Navbar = () => {
-  const { logout } = useContext(authContext);
+  const { authLogout } = useContext(authContext);
 
   const logOut = () => {
     axiosColors();
-    logout();
+    authLogout();
   };
   return (
     <>

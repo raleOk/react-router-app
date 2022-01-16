@@ -6,7 +6,7 @@ import axiosColors from "../components/Colors/axiosColors";
 
 const Home = () => {
   const [userData, setUserData] = useState({});
-  const { logout } = useContext(authContext);
+  const { authLogout } = useContext(authContext);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user"));
@@ -15,7 +15,7 @@ const Home = () => {
 
   const onLogout = () => {
     axiosColors();
-    logout();
+    authLogout();
   };
 
   return (

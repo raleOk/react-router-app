@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import Home from "./pages/Home";
@@ -10,10 +10,14 @@ import Colors from "./pages/Colors";
 import NotFound from "./pages/NotFound";
 import ColorDetails from "./pages/ColorDetails";
 import axiosColors from "./components/Colors/axiosColors";
+import { authContext } from "./auth/useAuth";
 
 const App = () => {
+  const { authHandler } = useContext(authContext);
+
   useEffect(() => {
     axiosColors();
+    authHandler();
   }, []);
   return (
     <div>

@@ -5,7 +5,7 @@ import { authContext } from "../auth/useAuth";
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({});
-  const { login } = useContext(authContext);
+  const { authLogin } = useContext(authContext);
 
   const registerDataHandler = event => {
     setRegisterData(prevState => {
@@ -15,7 +15,7 @@ const Register = () => {
 
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(registerData));
-    login();
+    authLogin();
   };
   return (
     <Box

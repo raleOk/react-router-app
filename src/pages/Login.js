@@ -6,7 +6,7 @@ import { authContext } from "../auth/useAuth";
 const Login = () => {
   const [loginData, setLoginData] = useState({});
 
-  const { login } = useContext(authContext);
+  const { authLogin } = useContext(authContext);
 
   const loginDataHandler = event => {
     setLoginData(prevState => {
@@ -16,7 +16,7 @@ const Login = () => {
 
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(loginData));
-    login();
+    authLogin();
   };
 
   return (
