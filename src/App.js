@@ -16,7 +16,9 @@ const App = () => {
   const { authHandler } = useContext(authContext);
 
   useEffect(() => {
-    axiosColors();
+    if (localStorage.getItem("colorsData") === null) {
+      axiosColors();
+    }
     authHandler();
   }, [authHandler]);
   return (
