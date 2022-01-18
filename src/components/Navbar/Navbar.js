@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import MyTabs from "./MyTabs";
 import PaletteIcon from "@mui/icons-material/Palette";
 import axiosColors from "../Colors/axiosColors";
@@ -28,6 +28,7 @@ const Navbar = () => {
           <PaletteIcon size="large" /> ColorCRUD
         </Typography>
         <MyTabs />
+        <Outlet />
         <Button
           component={Link}
           to={"/login"}
