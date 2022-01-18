@@ -15,14 +15,46 @@ const ColorsForm = () => {
     });
   };
 
+  const colorValidation = () => {
+    const regX = /[0-9A-Fa-f]{6}/g;
+    for (let i in color) {
+      if (color[i] === "") {
+        return false;
+      }
+    }
+    if (color.name.length < 2) {
+      alert("Name must be longer than 2 characters!");
+      return false;
+    }
+    if (Number(color.year) < 1990) {
+      alert("Year must be after 1990!");
+      return false;
+    }
+    regX.lastIndex = 0;
+    if (!regX.test(color.color)) {
+      alert("Enter a valid Hexadecimal value!");
+      return false;
+    }
+    if (color.pantone_value[2] !== "-") {
+      alert("Invalid pantone value format! (eg. 17-2901)");
+      return false;
+    }
+    return true;
+  };
+
   const addColor = () => {
-    setColor(prevState => {
-      return { ...prevState, id };
-    });
-    const colors = JSON.parse(localStorage.getItem("colorsData"));
-    colors.push(color);
-    localStorage.setItem("colorsData", JSON.stringify(colors));
-    navigate("/colors");
+    const validate = colorValidation();
+    if (validate) {
+      setColor(prevState => {
+        return { ...prevState, id };
+      });
+      const colors = JSON.parse(localStorage.getItem("colorsData"));
+      colors.push(color);
+      localStorage.setItem("colorsData", JSON.stringify(colors));
+      navigate("/colors");
+    } else {
+      return;
+    }
   };
 
   return (
