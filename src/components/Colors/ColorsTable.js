@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import ColorsEditForm from "./ColorsEditForm";
 import ColorsDeleteModal from "./ColorsDeleteModal";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const ColorsTable = props => {
   const { rows, tableDataHandler } = props;
@@ -59,7 +60,11 @@ const ColorsTable = props => {
   };
 
   const detailsPage = i => {
-    navigate(`/colorDetails/${i}`);
+    navigate(`/colors/${i}`);
+  };
+
+  const addNewHandler = () => {
+    navigate("/colors/addColor");
   };
 
   const iconStyles = {
@@ -83,7 +88,13 @@ const ColorsTable = props => {
           <TableCell align="right">Pantone value</TableCell>
           <TableCell></TableCell>
           <TableCell></TableCell>
-          <TableCell></TableCell>
+          <TableCell align="right">
+            <AddCircleOutlineIcon
+              color="primary"
+              sx={iconStyles}
+              onClick={addNewHandler}
+            />
+          </TableCell>
         </TableRow>
       </TableHead>
     );
@@ -148,7 +159,7 @@ const ColorsTable = props => {
       ) : (
         ""
       )}
-      ,
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           {tableHead()}

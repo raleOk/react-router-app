@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Colors from "./pages/Colors";
 import NotFound from "./pages/NotFound";
 import ColorDetails from "./pages/ColorDetails";
+import ColorsForm from "./components/Colors/ColorsForm";
 import axiosColors from "./components/Colors/axiosColors";
 import { authContext } from "./auth/useAuth";
 
@@ -27,12 +28,13 @@ const App = () => {
         <Route path="/" element={<ProtectedRoutes />}>
           <Route path="/" element={<Home />} exact />
           <Route path="/colors" element={<Colors />} />
+          <Route path="/colors/:colorId" element={<ColorDetails />} />
+          <Route path="/colors/addColor" element={<ColorsForm />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/colorDetails/:colorId" element={<ColorDetails />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

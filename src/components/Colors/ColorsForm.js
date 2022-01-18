@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
+import { Box, TextField, Button, Typography, Container } from "@mui/material";
 import { nanoid } from "nanoid";
 
-const ColorsForm = props => {
+const ColorsForm = () => {
   const [color, setColor] = useState({});
-  const { addColorHandler } = props;
 
+  const navigate = useNavigate();
   const id = nanoid();
 
   const changeHandler = event => {
@@ -21,59 +22,70 @@ const ColorsForm = props => {
     const colors = JSON.parse(localStorage.getItem("colorsData"));
     colors.push(color);
     localStorage.setItem("colorsData", JSON.stringify(colors));
-    addColorHandler(color);
+    navigate("/colors");
   };
 
   return (
-    <Box component="form" noValidate sx={{ m: 1, textAlign: "center" }}>
-      <Typography variant="body1">Add a new color!</Typography>
+    <Box
+      component="form"
+      noValidate
+      sx={{ m: 1, textAlign: "center", flexDirection: "row" }}
+    >
+      <Container>
+        <Typography
+          variant="h5"
+          sx={{ mb: 3, mt: 3, fontWeight: "fontWeightLight" }}
+        >
+          Add a new color!
+        </Typography>
+      </Container>
 
-      <TextField
-        name="name"
-        label="Name"
-        sx={{ mt: 1, mr: 1 }}
-        onChange={changeHandler}
-      >
-        Color:
-      </TextField>
+      <Container>
+        <TextField
+          name="name"
+          label="Name"
+          sx={{ mt: 1, mb: 2 }}
+          onChange={changeHandler}
+        />
+      </Container>
 
-      <TextField
-        name="year"
-        label="Year"
-        type="number"
-        sx={{ mt: 1, mr: 1 }}
-        onChange={changeHandler}
-      >
-        Year:
-      </TextField>
+      <Container>
+        <TextField
+          name="year"
+          label="Year"
+          sx={{ mt: 1, mb: 2 }}
+          onChange={changeHandler}
+        />
+      </Container>
 
-      <TextField
-        name="color"
-        label="Hexadecimal value"
-        onChange={changeHandler}
-        sx={{ mt: 1, mr: 1 }}
-      >
-        Hex value:
-      </TextField>
+      <Container>
+        <TextField
+          name="color"
+          label="Hexadecimal value"
+          sx={{ mt: 1, mb: 2 }}
+          onChange={changeHandler}
+        />
+      </Container>
 
-      <TextField
-        name="pantone_value"
-        label="Pantone value"
-        onChange={changeHandler}
-        sx={{ mt: 1, ml: 1 }}
-      >
-        Pantone value:
-      </TextField>
+      <Container>
+        <TextField
+          name="pantone_value"
+          label="Pantone value"
+          sx={{ mt: 1, mb: 2 }}
+          onChange={changeHandler}
+        />
+      </Container>
 
       <Button
         type="button"
         variant="contained"
-        size="small"
-        sx={{ mt: 2, ml: 2 }}
+        sx={{ mb: 2, ml: 1, mr: 2 }}
         onClick={addColor}
       >
         Add Color!
       </Button>
+
+      <Link to="/colors">Cancel...</Link>
     </Box>
   );
 };

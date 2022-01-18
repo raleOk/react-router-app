@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+
 import ColorsTable from "../components/Colors/ColorsTable";
-import ColorsForm from "../components/Colors/ColorsForm";
 
 const Colors = () => {
   const [data, setData] = useState([]);
@@ -10,22 +10,11 @@ const Colors = () => {
     setData(colors);
   }, []);
 
-  const addColorHandler = obj => {
-    setData(prevState => {
-      return [...prevState, obj];
-    });
-  };
-
   const tableDataHandler = arr => {
     setData(arr);
   };
 
-  return (
-    <>
-      <ColorsTable rows={data} tableDataHandler={tableDataHandler} />
-      <ColorsForm addColorHandler={addColorHandler} />)
-    </>
-  );
+  return <ColorsTable rows={data} tableDataHandler={tableDataHandler} />;
 };
 
 export default Colors;
