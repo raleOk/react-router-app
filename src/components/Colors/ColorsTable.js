@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   TableFooter,
+  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ColorsTablePagination from "./ColorsTablePagination";
@@ -17,28 +18,42 @@ import SearchIcon from "@mui/icons-material/Search";
 import ColorsEditForm from "./ColorsEditForm";
 import ColorsDeleteModal from "./ColorsDeleteModal";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import axiosColors from "./axiosColors";
 
-const ColorsTable = props => {
-  const { rows, tableDataHandler } = props;
+const ColorsTable = () => {
+  const [rows, setRows] = useState(
+    JSON.parse(localStorage.getItem("colorsData"))
+  );
 
   const navigate = useNavigate();
 
   //pagination state
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [currPage, setCurrPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(0);
 
   //crud functionality state
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [colorId, setColorId] = useState(null);
 
+  //loading state
+  const [isLoading, setIsLoading] = useState(false);
+
+  //page parameter for api call is always 1 higher than currentPage(api starts at 1, pagination at 0);
+  const apiPage = currPage + 1;
+
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    setIsLoading(true);
+    axiosColors(apiPage, setTotalRows, setRowsPerPage);
+    setRows(JSON.parse(localStorage.getItem("colorsData")));
+    setIsLoading(false);
+    setCurrPage(newPage);
   };
 
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrPage(0);
   };
 
   const startEditing = i => {
@@ -76,7 +91,7 @@ const ColorsTable = props => {
   };
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows.length - currPage * rowsPerPage);
 
   const tableHead = () => {
     return (
@@ -103,8 +118,9 @@ const ColorsTable = props => {
   const tableBody = () => {
     return (
       <TableBody>
+        {console.log(rows)}
         {rows
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .slice(currPage * rowsPerPage, currPage * rowsPerPage + rowsPerPage)
           .map(row => (
             <TableRow
               key={row.id}
@@ -154,38 +170,42 @@ const ColorsTable = props => {
           showModal={showModal}
           modalHandler={modalHandler}
           colorId={colorId}
-          tableDataHandler={tableDataHandler}
+          setRows={setRows}
         />
       ) : (
         ""
       )}
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          {tableHead()}
+      {isLoading ? (
+        <Typography>LOADING...</Typography>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            {tableHead()}
 
-          {isEditing ? (
-            <ColorsEditForm
-              currId={colorId}
-              stopEditing={stopEditing}
-              tableDataHandler={tableDataHandler}
-            />
-          ) : (
-            tableBody()
-          )}
+            {isEditing ? (
+              <ColorsEditForm
+                currId={colorId}
+                stopEditing={stopEditing}
+                setRows={setRows}
+              />
+            ) : (
+              tableBody()
+            )}
 
-          <TableFooter>
-            <ColorsTablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </TableFooter>
-        </Table>
-      </TableContainer>
+            <TableFooter>
+              <ColorsTablePagination
+                rowsPerPageOptions={[]}
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                page={currPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      )}
     </>
   );
 };

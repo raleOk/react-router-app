@@ -1,13 +1,26 @@
 import axios from "axios";
 
-const axiosColors = () => {
+const axiosColors = (page, totalRowsHandler, rowsPerPageHandler) => {
   axios
-    .get("https://reqres.in/api/colors")
+    .get(`https://reqres.in/api/colors?page=${page}`)
     .then(res => {
-      return res.data.data;
+      return res.data;
     })
     .then(data => {
-      localStorage.setItem("colorsData", JSON.stringify(data));
+      const colors = data.data;
+      const totalRows = data.total;
+      const rowsPerPage = data.per_page;
+      const currData = JSON.parse(localStorage.getItem("colorsData"));
+
+      if (page === 1) {
+        localStorage.setItem("colorsData", JSON.stringify(colors));
+      }
+      if (page !== 1) {
+        const newData = [...currData, ...colors];
+        localStorage.setItem("colorsData", JSON.stringify(newData));
+      }
+      totalRowsHandler(totalRows);
+      rowsPerPageHandler(rowsPerPage);
     })
     .catch(err => {
       console.log(err);
