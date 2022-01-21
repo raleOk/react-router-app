@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 const ColorsEditForm = props => {
-  const { currId, stopEditing, tableDataHandler } = props;
+  const { currId, stopEditing, setRows } = props;
 
   const [editedColor, setEditedColor] = useState({});
 
@@ -33,7 +33,7 @@ const ColorsEditForm = props => {
     });
     data[objIndex] = editedColor;
     localStorage.setItem("colorsData", JSON.stringify(data));
-    tableDataHandler(data);
+    setRows(data);
     stopEditing();
   };
 

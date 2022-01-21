@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Typography, Modal } from "@mui/material";
 
 const ColorsDeleteModal = props => {
-  const { showModal, modalHandler, colorId, tableDataHandler } = props;
+  const { showModal, modalHandler, colorId, setRows } = props;
 
   const style = {
     position: "absolute",
@@ -22,7 +22,7 @@ const ColorsDeleteModal = props => {
       return col.id !== colorId;
     });
     localStorage.setItem("colorsData", JSON.stringify(filteredColors));
-    tableDataHandler(filteredColors);
+    setRows(filteredColors);
     modalHandler();
   };
 
