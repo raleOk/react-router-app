@@ -16,11 +16,8 @@ import { authContext } from "./auth/useAuth";
 
 const App = () => {
   const { authHandler } = useContext(authContext);
-
   useEffect(() => {
-    if (localStorage.getItem("colorsData") === null) {
-      axiosColors();
-    }
+    axiosColors(1);
     authHandler();
   }, [authHandler]);
   return (
