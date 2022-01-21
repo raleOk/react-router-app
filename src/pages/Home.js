@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   const onLogout = () => {
-    axiosColors();
+    axiosColors(1);
     authLogout();
   };
 

@@ -19,6 +19,10 @@ const Login = () => {
     authLogin();
   };
 
+  const deleteData = () => {
+    localStorage.removeItem("colorsData");
+  };
+
   return (
     <Box
       component="form"
@@ -60,6 +64,9 @@ const Login = () => {
       <Box>
         <Link to="/register">Don't have an account? Register here!</Link>
       </Box>
+      <button type="button" onClick={deleteData}>
+        delete
+      </button>
     </Box>
   );
 };
