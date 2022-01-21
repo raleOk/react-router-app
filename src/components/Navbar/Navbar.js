@@ -10,7 +10,7 @@ const Navbar = () => {
   const { authLogout } = useContext(authContext);
 
   const logOut = () => {
-    axiosColors();
+    axiosColors(1);
     authLogout();
   };
   return (
