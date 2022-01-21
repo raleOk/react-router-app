@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const axiosColors = (page, totalRowsHandler, rowsPerPageHandler) => {
+const axiosColors = (
+  page,
+  totalRowsHandler,
+  rowsPerPageHandler,
+  stateUpdate
+) => {
   axios
     .get(`https://reqres.in/api/colors?page=${page}`)
     .then(res => {
@@ -20,6 +25,7 @@ const axiosColors = (page, totalRowsHandler, rowsPerPageHandler) => {
       }
       totalRowsHandler(totalRows);
       rowsPerPageHandler(rowsPerPage);
+      stateUpdate(JSON.parse(localStorage.getItem("colorsData")));
     })
     .catch(err => {
       console.log(err);

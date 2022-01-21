@@ -39,11 +39,8 @@ const ColorsTable = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    axiosColors(2, setTotalRows, setRowsPerPage);
-    setRows(JSON.parse(localStorage.getItem("colorsData")));
-    setIsLoading(false);
-  }, [currPage]);
+    axiosColors(1, setTotalRows, setRowsPerPage, setRows);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     // page parameter for api call is always 1 higher than currentPage(api starts at 1, pagination at 0);
@@ -53,7 +50,7 @@ const ColorsTable = () => {
       return;
     } else {
       setIsLoading(true);
-      axiosColors(apiPage, setTotalRows, setRowsPerPage);
+      axiosColors(apiPage, setTotalRows, setRowsPerPage, setRows);
       setRows(JSON.parse(localStorage.getItem("colorsData")));
       setIsLoading(false);
     }
