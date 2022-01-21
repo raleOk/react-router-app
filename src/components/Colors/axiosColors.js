@@ -11,7 +11,6 @@ const axiosColors = (page, totalRowsHandler, rowsPerPageHandler) => {
       const totalRows = data.total;
       const rowsPerPage = data.per_page;
       const currData = JSON.parse(localStorage.getItem("colorsData"));
-
       if (page === 1) {
         localStorage.setItem("colorsData", JSON.stringify(colors));
       }

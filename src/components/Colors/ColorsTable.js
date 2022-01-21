@@ -21,9 +21,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axiosColors from "./axiosColors";
 
 const ColorsTable = () => {
-  const [rows, setRows] = useState(
-    JSON.parse(localStorage.getItem("colorsData"))
-  );
+  const [rows, setRows] = useState([]);
 
   const navigate = useNavigate();
 
@@ -40,14 +38,26 @@ const ColorsTable = () => {
   //loading state
   const [isLoading, setIsLoading] = useState(false);
 
-  //page parameter for api call is always 1 higher than currentPage(api starts at 1, pagination at 0);
-  const apiPage = currPage + 1;
-
-  const handleChangePage = (event, newPage) => {
+  useEffect(() => {
     setIsLoading(true);
-    axiosColors(apiPage, setTotalRows, setRowsPerPage);
+    axiosColors(2, setTotalRows, setRowsPerPage);
     setRows(JSON.parse(localStorage.getItem("colorsData")));
     setIsLoading(false);
+  }, [currPage]);
+
+  const handleChangePage = (event, newPage) => {
+    // page parameter for api call is always 1 higher than currentPage(api starts at 1, pagination at 0);
+    const apiPage = newPage + 1;
+    if (currPage > newPage) {
+      setCurrPage(newPage);
+      return;
+    } else {
+      setIsLoading(true);
+      axiosColors(apiPage, setTotalRows, setRowsPerPage);
+      console.log(JSON.parse(localStorage.getItem("colorsData")));
+      setRows(JSON.parse(localStorage.getItem("colorsData")));
+      setIsLoading(false);
+    }
     setCurrPage(newPage);
   };
 
@@ -118,7 +128,6 @@ const ColorsTable = () => {
   const tableBody = () => {
     return (
       <TableBody>
-        {console.log(rows)}
         {rows
           .slice(currPage * rowsPerPage, currPage * rowsPerPage + rowsPerPage)
           .map(row => (
