@@ -54,7 +54,6 @@ const ColorsTable = () => {
     } else {
       setIsLoading(true);
       axiosColors(apiPage, setTotalRows, setRowsPerPage);
-      console.log(JSON.parse(localStorage.getItem("colorsData")));
       setRows(JSON.parse(localStorage.getItem("colorsData")));
       setIsLoading(false);
     }
