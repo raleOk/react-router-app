@@ -6,9 +6,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
   Box,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ColorDetails = () => {
   const params = useParams();
@@ -24,47 +26,64 @@ const ColorDetails = () => {
     setColorToDisplay(color);
   }, [params.colorId]);
 
-  const backHandler = () => {
-    navigate("/colors");
-  };
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="75vh"
-    >
-      <Card
-        sx={{
-          maxWidth: 345,
+    <>
+      <IconButton
+        type="button"
+        variant="outlined"
+        color="primary"
+        onClick={() => {
+          navigate("/colors");
         }}
+        sx={{ float: "right", mt: 2, mr: 2 }}
       >
-        <CardMedia
-          style={{ backgroundColor: `${colorToDisplay.color} ` || "white" }}
-          component="img"
-          height="120"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {colorToDisplay.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Hex value: {colorToDisplay.color}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Year: {colorToDisplay.year}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Pantone value: {colorToDisplay.pantone_value}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={backHandler}>
-            Back
-          </Button>
-        </CardActions>
-      </Card>
-    </Box>
+        <CloseIcon />
+      </IconButton>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="75vh"
+      >
+        <Card
+          sx={{
+            maxWidth: 345,
+          }}
+        >
+          <CardMedia
+            style={{ backgroundColor: `${colorToDisplay.color} ` || "white" }}
+            component="img"
+            height="120"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {colorToDisplay.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Hex value: {colorToDisplay.color}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Year: {colorToDisplay.year}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Pantone value: {colorToDisplay.pantone_value}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <IconButton
+              sx={{ ml: 16 }}
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                navigate(`/colors/edit/${params.colorId}`);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      </Box>
+    </>
   );
 };
 

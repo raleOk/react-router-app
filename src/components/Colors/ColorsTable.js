@@ -177,18 +177,7 @@ const ColorsTable = () => {
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             {tableHead()}
-
-            {/* {isEditing ? (
-              <ColorsEditForm
-                currId={colorId}
-                stopEditing={stopEditing}
-                setRows={setRows}
-              />
-            ) : (
-              tableBody()
-            )}  */}
             {tableBody()}
-
             <TableFooter>
               <ColorsTablePagination
                 rowsPerPageOptions={[]}

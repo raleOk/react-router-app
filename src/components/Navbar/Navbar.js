@@ -4,6 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import MyTabs from "./MyTabs";
 import PaletteIcon from "@mui/icons-material/Palette";
 import axiosColors from "../Colors/axiosColors";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { authContext } from "../../auth/useAuth";
 
 const Navbar = () => {
@@ -32,8 +33,10 @@ const Navbar = () => {
         <Button
           component={Link}
           to={"/login"}
-          variant="outlined"
+          variant="contained"
+          startIcon={<LogoutIcon />}
           color="error"
+          size="small"
           onClick={logOut}
           sx={{ position: "absolute", right: 10, top: 9 }}
         >

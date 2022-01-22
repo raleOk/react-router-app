@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Box, TextField, Button, Typography, Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Container,
+  IconButton,
+} from "@mui/material";
 import { nanoid } from "nanoid";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ColorsNewForm = () => {
   const [color, setColor] = useState({});
@@ -98,78 +106,89 @@ const ColorsNewForm = () => {
   };
 
   return (
-    <Box
-      component="form"
-      noValidate
-      sx={{ m: 1, textAlign: "center", flexDirection: "row" }}
-    >
-      <Container>
-        <Typography
-          variant="h5"
-          sx={{ mb: 3, mt: 3, fontWeight: "fontWeightLight" }}
-          color={inputErr ? "red" : "black"}
-        >
-          {inputErr ? "Fill out all fields please!" : "Add a new color!"}
-        </Typography>
-      </Container>
-
-      <Container>
-        <TextField
-          name="name"
-          label="Name"
-          sx={{ mt: 1, mb: 2 }}
-          error={nameErr}
-          helperText={nameErr ? "Name must be longer than 2 characters!" : ""}
-          onChange={changeHandler}
-        />
-      </Container>
-
-      <Container>
-        <TextField
-          name="year"
-          label="Year"
-          sx={{ mt: 1, mb: 2 }}
-          error={yearErr}
-          helperText={yearErr ? "Year must be after 1990!" : ""}
-          onChange={changeHandler}
-        />
-      </Container>
-
-      <Container>
-        <TextField
-          name="color"
-          label="Hexadecimal value"
-          sx={{ mt: 1, mb: 2 }}
-          error={hexErr}
-          helperText={hexErr ? "Enter a valid Hexadecimal value!" : ""}
-          onChange={changeHandler}
-        />
-      </Container>
-
-      <Container>
-        <TextField
-          name="pantone_value"
-          label="Pantone value"
-          sx={{ mt: 1, mb: 2 }}
-          error={panErr}
-          helperText={
-            panErr ? "Invalid pantone value format! (eg. 17-2901)" : ""
-          }
-          onChange={changeHandler}
-        />
-      </Container>
-
-      <Button
+    <>
+      <IconButton
         type="button"
-        variant="contained"
-        sx={{ mb: 2, ml: 1, mr: 2 }}
-        onClick={addColor}
+        variant="outlined"
+        color="primary"
+        onClick={() => {
+          navigate("/colors");
+        }}
+        sx={{ float: "right", mt: 2, mr: 2 }}
       >
-        Add Color!
-      </Button>
+        <CloseIcon />
+      </IconButton>
+      <Box
+        component="form"
+        noValidate
+        sx={{ m: 1, textAlign: "center", flexDirection: "row" }}
+      >
+        <Container>
+          <Typography
+            variant="h5"
+            sx={{ mb: 3, mt: 3, ml: 2, fontWeight: "fontWeightLight" }}
+            color={inputErr ? "red" : "black"}
+          >
+            {inputErr ? "Fill out all fields please!" : "Add a new color!"}
+          </Typography>
+        </Container>
 
-      <Link to="/colors">Cancel...</Link>
-    </Box>
+        <Container>
+          <TextField
+            name="name"
+            label="Name"
+            sx={{ mt: 1, mb: 2 }}
+            error={nameErr}
+            helperText={nameErr ? "Name must be longer than 2 characters!" : ""}
+            onChange={changeHandler}
+          />
+        </Container>
+
+        <Container>
+          <TextField
+            name="year"
+            label="Year"
+            sx={{ mt: 1, mb: 2 }}
+            error={yearErr}
+            helperText={yearErr ? "Year must be after 1990!" : ""}
+            onChange={changeHandler}
+          />
+        </Container>
+
+        <Container>
+          <TextField
+            name="color"
+            label="Hexadecimal value"
+            sx={{ mt: 1, mb: 2 }}
+            error={hexErr}
+            helperText={hexErr ? "Enter a valid Hexadecimal value!" : ""}
+            onChange={changeHandler}
+          />
+        </Container>
+
+        <Container>
+          <TextField
+            name="pantone_value"
+            label="Pantone value"
+            sx={{ mt: 1, mb: 2 }}
+            error={panErr}
+            helperText={
+              panErr ? "Invalid pantone value format! (eg. 17-2901)" : ""
+            }
+            onChange={changeHandler}
+          />
+        </Container>
+
+        <Button
+          type="button"
+          variant="contained"
+          sx={{ mb: 2 }}
+          onClick={addColor}
+        >
+          Add Color!
+        </Button>
+      </Box>
+    </>
   );
 };
 
