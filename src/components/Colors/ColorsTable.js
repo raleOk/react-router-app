@@ -15,7 +15,6 @@ import ColorsTablePagination from "./ColorsTablePagination";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
-import ColorsEditForm from "./ColorsEditForm";
 import ColorsDeleteModal from "./ColorsDeleteModal";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axiosColors from "./axiosColors";
@@ -32,7 +31,6 @@ const ColorsTable = () => {
 
   //crud functionality state
   const [showModal, setShowModal] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [colorId, setColorId] = useState(null);
 
   //loading state
@@ -62,15 +60,6 @@ const ColorsTable = () => {
     setCurrPage(0);
   };
 
-  const startEditing = i => {
-    setIsEditing(true);
-    setColorId(i);
-  };
-
-  const stopEditing = () => {
-    setIsEditing(false);
-  };
-
   const handleDelete = i => {
     setColorId(i);
     setShowModal(true);
@@ -78,6 +67,10 @@ const ColorsTable = () => {
 
   const modalHandler = () => {
     setShowModal(false);
+  };
+
+  const onEdit = i => {
+    navigate(`/colors/edit/${i}`);
   };
 
   const detailsPage = i => {
@@ -146,10 +139,7 @@ const ColorsTable = () => {
                 />
               </TableCell>
               <TableCell align="right">
-                <EditIcon
-                  sx={iconStyles}
-                  onClick={() => startEditing(row.id)}
-                />
+                <EditIcon sx={iconStyles} onClick={() => onEdit(row.id)} />
               </TableCell>
               <TableCell align="right">
                 <DeleteIcon
@@ -188,7 +178,7 @@ const ColorsTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             {tableHead()}
 
-            {isEditing ? (
+            {/* {isEditing ? (
               <ColorsEditForm
                 currId={colorId}
                 stopEditing={stopEditing}
@@ -196,7 +186,8 @@ const ColorsTable = () => {
               />
             ) : (
               tableBody()
-            )}
+            )}  */}
+            {tableBody()}
 
             <TableFooter>
               <ColorsTablePagination

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Box, TextField, Button, Typography, Container } from "@mui/material";
 import { nanoid } from "nanoid";
 
-const ColorsForm = () => {
+const ColorsNewForm = () => {
   const [color, setColor] = useState({});
 
   const [inputErr, setInputErr] = useState(false);
@@ -173,4 +173,4 @@ const ColorsForm = () => {
   );
 };
 
-export default ColorsForm;
+export default ColorsNewForm;
