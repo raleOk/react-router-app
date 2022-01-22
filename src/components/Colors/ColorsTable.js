@@ -85,7 +85,7 @@ const ColorsTable = () => {
   };
 
   const addNewHandler = () => {
-    navigate("/colors/addColor");
+    navigate("/colors/add");
   };
 
   const iconStyles = {
