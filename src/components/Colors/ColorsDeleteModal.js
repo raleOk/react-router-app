@@ -16,6 +16,10 @@ const ColorsDeleteModal = props => {
     p: 4,
   };
 
+  const onExit = () => {
+    modalHandler();
+  };
+
   const onDelete = () => {
     const colors = JSON.parse(localStorage.getItem("colorsData"));
     const filteredColors = colors.filter(col => {
@@ -41,6 +45,15 @@ const ColorsDeleteModal = props => {
           Are you sure you want to delete this color?
         </Typography>
         <Button onClick={onDelete}>Delete</Button>
+        <Button
+          onClick={onExit}
+          sx={{
+            cursor: "right",
+            float: "right",
+          }}
+        >
+          Exit
+        </Button>
       </Box>
     </Modal>
   );
