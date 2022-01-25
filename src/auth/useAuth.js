@@ -16,6 +16,8 @@ const useAuth = () => {
         case "false":
           setAuth(false);
           break;
+        default:
+          setAuth(false);
       }
     },
     authLogin() {
