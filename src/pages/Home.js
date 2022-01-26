@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
 import { authContext } from "../auth/useAuth";
-import axiosColors from "../components/Colors/axiosColors";
 
 const Home = () => {
   const [userData, setUserData] = useState({});
@@ -14,7 +13,7 @@ const Home = () => {
   }, []);
 
   const onLogout = () => {
-    axiosColors(1);
+    localStorage.removeItem("token");
     authLogout();
   };
 

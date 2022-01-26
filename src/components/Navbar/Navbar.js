@@ -3,7 +3,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
 import MyTabs from "./MyTabs";
 import PaletteIcon from "@mui/icons-material/Palette";
-import axiosColors from "../Colors/axiosColors";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { authContext } from "../../auth/useAuth";
 
@@ -11,7 +10,7 @@ const Navbar = () => {
   const { authLogout } = useContext(authContext);
 
   const logOut = () => {
-    axiosColors(1);
+    localStorage.removeItem("token");
     authLogout();
   };
   return (

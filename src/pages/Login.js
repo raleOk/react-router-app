@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
 import { authContext } from "../auth/useAuth";
+import axiosUser from "../auth/axiosUser";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
@@ -17,6 +18,7 @@ const Login = () => {
   const onSubmit = () => {
     localStorage.setItem("user", JSON.stringify(loginData));
     authLogin();
+    axiosUser();
   };
 
   return (

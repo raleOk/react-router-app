@@ -12,13 +12,11 @@ import ColorDetails from "./pages/ColorDetails";
 import ColorsNewForm from "./pages/ColorsNewForm";
 import Navbar from "./components/Navbar/Navbar";
 import ColorsEditForm from "./pages/ColorsEditForm";
-import axiosColors from "./components/Colors/axiosColors";
 import { authContext } from "./auth/useAuth";
 
 const App = () => {
   const { authHandler } = useContext(authContext);
   useEffect(() => {
-    axiosColors(1);
     authHandler();
   }, [authHandler]);
   return (

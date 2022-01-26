@@ -1,13 +1,22 @@
 import axios from "axios";
 
+const token = JSON.parse(localStorage.getItem("token"));
+
+const authAxios = axios.create({
+  baseURL: "https://reqres.in/api",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 const axiosColors = (
   page,
   totalRowsHandler,
   rowsPerPageHandler,
   stateUpdate
 ) => {
-  axios
-    .get(`https://reqres.in/api/colors?page=${page}`)
+  authAxios
+    .get(`/colors?page=${page}`)
     .then(res => {
       return res.data;
     })
