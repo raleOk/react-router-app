@@ -21,6 +21,8 @@ const ColorsEditForm = () => {
     const color = data.find(c => {
       return String(c.id) === String(params.colorId);
     });
+    console.log(color);
+    console.log(color.name);
     setEditedColor(color);
   }, [params.colorId]);
 
@@ -38,6 +40,10 @@ const ColorsEditForm = () => {
     data[objIndex] = editedColor;
     localStorage.setItem("colorsData", JSON.stringify(data));
     navigate("/colors");
+  };
+
+  const testing = () => {
+    console.log(editedColor);
   };
 
   return (
@@ -74,7 +80,7 @@ const ColorsEditForm = () => {
             name="name"
             sx={{ mt: 1, mb: 2 }}
             defaultValue={editedColor.name}
-            value={editedColor.name || {}}
+            value={editedColor.name || ""}
             onChange={onChangeHandler}
           />
         </Container>
@@ -86,7 +92,7 @@ const ColorsEditForm = () => {
             label="Year"
             sx={{ mt: 1, mb: 2 }}
             defaultValue={editedColor.year}
-            value={editedColor.year || {}}
+            value={editedColor.year || ""}
             onChange={onChangeHandler}
           />
         </Container>
@@ -98,7 +104,7 @@ const ColorsEditForm = () => {
             label="Hexadecimal value"
             sx={{ mt: 1, mb: 2 }}
             defaultValue={editedColor.color}
-            value={editedColor.color || {}}
+            value={editedColor.color || ""}
             onChange={onChangeHandler}
           />
         </Container>
@@ -109,7 +115,7 @@ const ColorsEditForm = () => {
             label="Pantone value"
             sx={{ mt: 1, mb: 2 }}
             defaultValue={editedColor.pantone_value}
-            value={editedColor.pantone_value || {}}
+            value={editedColor.pantone_value || ""}
             onChange={onChangeHandler}
           />
         </Container>
@@ -122,6 +128,9 @@ const ColorsEditForm = () => {
         >
           Edit!
         </Button>
+        <button type="button" onClick={testing}>
+          test
+        </button>
       </Box>
     </>
   );
