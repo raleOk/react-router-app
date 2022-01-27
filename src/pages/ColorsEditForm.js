@@ -21,8 +21,6 @@ const ColorsEditForm = () => {
     const color = data.find(c => {
       return String(c.id) === String(params.colorId);
     });
-    console.log(color);
-    console.log(color.name);
     setEditedColor(color);
   }, [params.colorId]);
 
@@ -40,10 +38,6 @@ const ColorsEditForm = () => {
     data[objIndex] = editedColor;
     localStorage.setItem("colorsData", JSON.stringify(data));
     navigate("/colors");
-  };
-
-  const testing = () => {
-    console.log(editedColor);
   };
 
   return (
@@ -128,9 +122,6 @@ const ColorsEditForm = () => {
         >
           Edit!
         </Button>
-        <button type="button" onClick={testing}>
-          test
-        </button>
       </Box>
     </>
   );
