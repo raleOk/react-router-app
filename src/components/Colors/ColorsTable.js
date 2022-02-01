@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
   Table,
-  TableBody,
-  TableCell,
   TableContainer,
-  TableHead,
-  TableRow,
   Paper,
   TableFooter,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import ColorsTablePagination from "./ColorsTablePagination";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import SearchIcon from "@mui/icons-material/Search";
 import ColorsDeleteModal from "./ColorsDeleteModal";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axiosColors from "./axiosColors";
+import ColorsTableHead from "./ColorsTableHead";
+import ColorsTableBody from "./ColorsTableBody";
 
 const ColorsTable = () => {
   const [rows, setRows] = useState([]);
-
-  const navigate = useNavigate();
 
   //pagination state
   const [currPage, setCurrPage] = useState(0);
@@ -40,45 +31,8 @@ const ColorsTable = () => {
     axiosColors(1, setTotalRows, setRowsPerPage, setRows);
   }, []);
 
-  const handleChangePage = (event, newPage) => {
-    // page parameter for api call is always 1 higher than currentPage(api starts at 1, pagination at 0);
-    const apiPage = newPage + 1;
-    if (currPage > newPage) {
-      setCurrPage(newPage);
-      return;
-    } else {
-      setIsLoading(true);
-      axiosColors(apiPage, setTotalRows, setRowsPerPage, setRows);
-      setRows(JSON.parse(localStorage.getItem("colorsData")));
-      setIsLoading(false);
-    }
-    setCurrPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrPage(0);
-  };
-
-  const handleDelete = i => {
-    setColorId(i);
-    setShowModal(true);
-  };
-
   const modalHandler = () => {
     setShowModal(false);
-  };
-
-  const onEdit = i => {
-    navigate(`/colors/edit/${i}`);
-  };
-
-  const detailsPage = i => {
-    navigate(`/colors/${i}`);
-  };
-
-  const addNewHandler = () => {
-    navigate("/colors/add");
   };
 
   const iconStyles = {
@@ -87,75 +41,6 @@ const ColorsTable = () => {
     height: "25px",
     padding: "4px ",
     borderRadius: "5px",
-  };
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - currPage * rowsPerPage);
-
-  const tableHead = () => {
-    return (
-      <TableHead>
-        <TableRow>
-          <TableCell>Color</TableCell>
-          <TableCell align="right">Year</TableCell>
-          <TableCell align="right">Hexadecimal value</TableCell>
-          <TableCell align="right">Pantone value</TableCell>
-          <TableCell></TableCell>
-          <TableCell></TableCell>
-          <TableCell align="right">
-            <AddCircleOutlineIcon
-              color="primary"
-              sx={iconStyles}
-              onClick={addNewHandler}
-            />
-          </TableCell>
-        </TableRow>
-      </TableHead>
-    );
-  };
-
-  const tableBody = () => {
-    return (
-      <TableBody>
-        {rows
-          .slice(currPage * rowsPerPage, currPage * rowsPerPage + rowsPerPage)
-          .map(row => (
-            <TableRow
-              key={row.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.year}</TableCell>
-              <TableCell align="right">{row.color}</TableCell>
-              <TableCell align="right">{row.pantone_value}</TableCell>
-              <TableCell align="right">
-                <SearchIcon
-                  sx={iconStyles}
-                  onClick={() => {
-                    detailsPage(row.id);
-                  }}
-                />
-              </TableCell>
-              <TableCell align="right">
-                <EditIcon sx={iconStyles} onClick={() => onEdit(row.id)} />
-              </TableCell>
-              <TableCell align="right">
-                <DeleteIcon
-                  sx={iconStyles}
-                  onClick={() => handleDelete(row.id)}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-        {emptyRows > 0 && (
-          <TableRow style={{ height: 53 * emptyRows }}>
-            <TableCell colSpan={6} />
-          </TableRow>
-        )}
-      </TableBody>
-    );
   };
 
   return (
@@ -176,16 +61,28 @@ const ColorsTable = () => {
       ) : (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            {tableHead()}
-            {tableBody()}
+            <ColorsTableHead iconStyles={iconStyles} />
+            <ColorsTableBody
+              iconStyles={iconStyles}
+              rows={rows}
+              currPage={currPage}
+              rowsPerPage={rowsPerPage}
+              setShowModal={setShowModal}
+              setColorId={setColorId}
+            />
+
             <TableFooter>
               <ColorsTablePagination
                 rowsPerPageOptions={[]}
                 count={totalRows}
                 rowsPerPage={rowsPerPage}
                 page={currPage}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                setCurrPage={setCurrPage}
+                setIsLoading={setIsLoading}
+                axiosColors={axiosColors}
+                setTotalRows={setTotalRows}
+                setRowsPerPage={setRowsPerPage}
+                setRows={setRows}
               />
             </TableFooter>
           </Table>
